@@ -21,8 +21,7 @@ func (e *HtmlElement) String() string {
 func (e *HtmlElement) string(indent int) string {
 	sb := strings.Builder{}
 	i := strings.Repeat(" ", indentSize*indent)
-	sb.WriteString(fmt.Sprintf("%d<%s>\n",
-		i, e.name))
+	sb.WriteString(fmt.Sprintf("%d<%s>\n", i, e.name))
 	if len(e.text) > 0 {
 		sb.WriteString(strings.Repeat(" ",
 			indentSize*(indent+1)))
@@ -65,30 +64,56 @@ func (builder *HtmlBuilder) Clear() {
 }
 
 func main() {
-	hello := "Hello"
+	/*
+		htmlBuilder := HtmlBuilder{}
 
-	sb := strings.Builder{}
+		htmlBuilder.rootName = "root"
+		htmlBuilder.root.text = "ul"
 
-	sb.WriteString("<p>")
-	sb.WriteString(hello)
+		htmlElement := HtmlElement{}
+		htmlElement.name = "firstElement"
+		htmlElement.text = "li"
 
-	sb.WriteString("</p>")
+		htmlBuilder.root = htmlElement
 
-	fmt.Println(sb.String())
-	// first version
-	words := []string{"one", "two"}
-	sb.Reset()
+		htmlBuilder.AddChild("htmlElement li", "li")
 
-	sb.WriteString("<ul>")
+		fmt.Println(htmlBuilder.String())
+	*/
 
-	for _, word := range words {
-		sb.WriteString("<li>")
-		sb.WriteString(word)
-		sb.WriteString("</li>")
-	}
-	sb.WriteString("</ul>")
+	// version 2
 
-	fmt.Println(sb.String())
+	b := HtmlBuilder{}
 
-	// second
+	b.AddChildFluent("ul", "first").AddChildFluent("li", "second")
+
+	fmt.Println(b.String())
+
+	/*
+		hello := "Hello"
+
+		sb := strings.Builder{}
+
+		sb.WriteString("<p>")
+		sb.WriteString(hello)
+
+		sb.WriteString("</p>")
+
+		fmt.Println(sb.String())
+		// first version
+		words := []string{"one", "two"}
+		sb.Reset()
+
+		sb.WriteString("<ul>")
+
+		for _, word := range words {
+			sb.WriteString("<li>")
+			sb.WriteString(word)
+			sb.WriteString("</li>")
+		}
+		sb.WriteString("</ul>")
+
+		fmt.Println(sb.String())
+
+	*/
 }
